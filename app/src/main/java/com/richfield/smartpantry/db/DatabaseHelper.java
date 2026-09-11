@@ -5,6 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.richfield.smartpantry.data.RecipeSeeder;
+
 // Creates the SQLite database file and the three tables.
 // The whole app shares one helper so we don't open the database twice.
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -34,6 +36,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(PantryContract.PantryTable.CREATE_SQL);
         db.execSQL(PantryContract.RecipeTable.CREATE_SQL);
         db.execSQL(PantryContract.RecipeIngredientTable.CREATE_SQL);
+
+        // load the built in recipes so the suggestions screen has something to work with
+        RecipeSeeder.seed(db);
     }
 
     // Runs when DATABASE_VERSION goes up. Nothing worth keeping yet so the
