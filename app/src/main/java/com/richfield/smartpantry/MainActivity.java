@@ -2,6 +2,7 @@ package com.richfield.smartpantry;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,6 +22,10 @@ public class MainActivity extends AppCompatActivity {
 
         // temporary check that the recipes actually got saved
         List<Recipe> recipes = new RecipeRepository(this).getAllWithIngredients();
+
+        TextView body = findViewById(R.id.textBody);
+        body.setText(recipes.size() + " recipes loaded");
+
         Log.d("MainActivity", "recipes in database: " + recipes.size());
         for (Recipe recipe : recipes) {
             Log.d("MainActivity", recipe.getName() + " needs "
