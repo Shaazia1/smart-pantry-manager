@@ -1,0 +1,5 @@
+<resources>
+
+    <style name="Theme.SmartPantry" parent="Theme.MaterialComponents.DayNight.NoActionBar" />
+
+</resources>
