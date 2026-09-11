@@ -1,5 +1,15 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Theme.SmartPantry" parent="Theme.MaterialComponents.DayNight.NoActionBar" />
+    <style name="Theme.SmartPantry" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/green_700</item>
+        <item name="colorPrimaryDark">@color/green_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/green_600</item>
+        <item name="colorAccent">@color/green_600</item>
+        <item name="android:colorBackground">@color/surface</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/green_700</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+    </style>
 
 </resources>

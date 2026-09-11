@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="green_700">#2E6B4F</color>
+    <color name="green_600">#3A8763</color>
+    <color name="green_100">#DCEFE3</color>
+
+    <!-- used later for expiry date labels -->
+    <color name="amber_600">#C77800</color>
+    <color name="amber_100">#FFF0D4</color>
+    <color name="red_600">#B3261E</color>
+    <color name="red_100">#FADAD7</color>
+
+    <color name="surface">#FFFBF7</color>
+    <color name="surface_card">#FFFFFF</color>
+    <color name="outline">#DCD6CE</color>
+    <color name="text_primary">#1C1B1A</color>
+    <color name="text_secondary">#5F5B57</color>
+    <color name="white">#FFFFFF</color>
+</resources>
