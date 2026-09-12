@@ -1,5 +1,17 @@
 <resources>
     <string name="app_name">Smart Pantry</string>
-    <string name="placeholder_title">Smart Pantry Manager</string>
-    <string name="placeholder_body">Cook what you already have.</string>
+
+    <string name="title_pantry">My Pantry</string>
+    <string name="item_count">%1$d ingredients in your pantry</string>
+    <string name="pantry_empty_title">Your pantry is empty</string>
+    <string name="pantry_empty_body">Tap the + button to add the ingredients you already have at home.</string>
+
+    <string name="add_ingredient">Add ingredient</string>
+    <string name="delete_ingredient">Delete ingredient</string>
+    <string name="deleted_item">%1$s deleted</string>
+    <string name="confirm_delete_title">Delete ingredient?</string>
+    <string name="confirm_delete_body">%1$s will be removed from your pantry.</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="coming_soon">The add screen is next</string>
 </resources>

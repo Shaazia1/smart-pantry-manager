@@ -1,18 +1,13 @@
 package com.richfield.smartpantry;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.richfield.smartpantry.db.RecipeRepository;
-import com.richfield.smartpantry.model.Recipe;
+import com.richfield.smartpantry.ui.PantryListFragment;
 
-import java.util.List;
-
-// Main screen of the app. For now it only shows a placeholder layout.
-// Later this will hold the bottom navigation and swap the fragments.
+// Holds the screens. For now it just shows the pantry list, the bottom
+// navigation and the other tabs get added later.
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -20,16 +15,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // temporary check that the recipes actually got saved
-        List<Recipe> recipes = new RecipeRepository(this).getAllWithIngredients();
-
-        TextView body = findViewById(R.id.textBody);
-        body.setText(recipes.size() + " recipes loaded");
-
-        Log.d("MainActivity", "recipes in database: " + recipes.size());
-        for (Recipe recipe : recipes) {
-            Log.d("MainActivity", recipe.getName() + " needs "
-                    + recipe.getIngredients().size() + " ingredients");
+        // only add the fragment the first time, otherwise it gets added again
+        // on top of itself when the screen is rotated
+        if (savedInstanceState == null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragmentContainer, new PantryListFragment())
+                    .commit();
         }
     }
 }
