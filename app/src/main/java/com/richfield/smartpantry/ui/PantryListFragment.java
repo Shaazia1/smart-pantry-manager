@@ -1,6 +1,7 @@
 package com.richfield.smartpantry.ui;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,8 +24,7 @@ import com.richfield.smartpantry.model.PantryItem;
 
 import java.util.List;
 
-// Shows everything in the pantry. Adding and editing comes next, for now the
-// list can be read and items can be deleted.
+// Shows everything in the pantry and starts the add/edit screen.
 public class PantryListFragment extends Fragment implements PantryAdapter.OnItemActionListener {
 
     private PantryRepository repository;
@@ -59,11 +59,10 @@ public class PantryListFragment extends Fragment implements PantryAdapter.OnItem
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View clicked) {
-                Toast.makeText(requireContext(), R.string.coming_soon, Toast.LENGTH_SHORT).show();
+                // no id in the intent, so the next screen opens in add mode
+                startActivity(new Intent(requireContext(), AddEditIngredientActivity.class));
             }
         });
-
-        addTestItems();
     }
 
     // Reading in onResume means the list is refreshed when we come back from
@@ -85,6 +84,14 @@ public class PantryListFragment extends Fragment implements PantryAdapter.OnItem
         textItemCount.setText(getString(R.string.item_count, items.size()));
     }
 
+    // sends the row id along so the form knows which item to load
+    @Override
+    public void onEditRequested(PantryItem item) {
+        Intent intent = new Intent(requireContext(), AddEditIngredientActivity.class);
+        intent.putExtra(AddEditIngredientActivity.EXTRA_ITEM_ID, item.getId());
+        startActivity(intent);
+    }
+
     @Override
     public void onDeleteRequested(final PantryItem item) {
         new AlertDialog.Builder(requireContext())
@@ -102,16 +109,5 @@ public class PantryListFragment extends Fragment implements PantryAdapter.OnItem
                     }
                 })
                 .show();
-    }
-
-    // temporary, just so there is something in the list before the add screen
-    // is built. Delete this once adding works.
-    private void addTestItems() {
-        if (repository.count() > 0) {
-            return;
-        }
-        repository.insert(new PantryItem(-1, "Eggs", 6, "piece", null));
-        repository.insert(new PantryItem(-1, "Milk", 500, "ml", null));
-        repository.insert(new PantryItem(-1, "Rice", 1, "kg", null));
     }
 }

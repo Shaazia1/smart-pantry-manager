@@ -13,5 +13,12 @@
     <string name="confirm_delete_body">%1$s will be removed from your pantry.</string>
     <string name="action_delete">Delete</string>
     <string name="action_cancel">Cancel</string>
-    <string name="coming_soon">The add screen is next</string>
+    <string name="edit_ingredient">Edit ingredient</string>
+    <string name="hint_name">Ingredient name</string>
+    <string name="hint_quantity">Quantity</string>
+    <string name="hint_unit">Unit</string>
+    <string name="hint_expiry">Expiry date (optional)</string>
+    <string name="action_save">Save</string>
+    <string name="saved_item">%1$s saved</string>
+    <string name="error_item_missing">That ingredient could not be found</string>
 </resources>

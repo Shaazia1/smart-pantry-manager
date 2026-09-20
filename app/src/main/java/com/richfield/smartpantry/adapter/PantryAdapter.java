@@ -20,8 +20,10 @@ import java.util.List;
 // from item_pantry.xml, onBindViewHolder fills that row with one item.
 public class PantryAdapter extends RecyclerView.Adapter<PantryAdapter.PantryViewHolder> {
 
-    // lets the fragment know which item the delete button belonged to
+    // lets the fragment know which item a button belonged to
     public interface OnItemActionListener {
+        void onEditRequested(PantryItem item);
+
         void onDeleteRequested(PantryItem item);
     }
 
@@ -63,12 +65,14 @@ public class PantryAdapter extends RecyclerView.Adapter<PantryAdapter.PantryView
 
         private final TextView textName;
         private final TextView textQuantity;
+        private final ImageButton buttonEdit;
         private final ImageButton buttonDelete;
 
         PantryViewHolder(@NonNull View itemView) {
             super(itemView);
             textName = itemView.findViewById(R.id.textName);
             textQuantity = itemView.findViewById(R.id.textQuantity);
+            buttonEdit = itemView.findViewById(R.id.buttonEdit);
             buttonDelete = itemView.findViewById(R.id.buttonDelete);
         }
 
@@ -76,10 +80,25 @@ public class PantryAdapter extends RecyclerView.Adapter<PantryAdapter.PantryView
             textName.setText(item.getName());
             textQuantity.setText(TextFormat.amount(item.getQuantity(), item.getUnit()));
 
+            buttonEdit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onEditRequested(item);
+                }
+            });
+
             buttonDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     listener.onDeleteRequested(item);
+                }
+            });
+
+            // tapping the row itself opens the edit screen too
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onEditRequested(item);
                 }
             });
         }

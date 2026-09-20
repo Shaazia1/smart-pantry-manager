@@ -17,7 +17,7 @@
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/buttonDelete" />
+        app:layout_constraintEnd_toStartOf="@+id/buttonEdit" />
 
     <TextView
         android:id="@+id/textQuantity"
@@ -28,6 +28,17 @@
         android:textSize="14sp"
         app:layout_constraintTop_toBottomOf="@+id/textName"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/buttonEdit" />
+
+    <ImageButton
+        android:id="@+id/buttonEdit"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/edit_ingredient"
+        android:src="@drawable/ic_edit"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/buttonDelete" />
 
     <ImageButton
