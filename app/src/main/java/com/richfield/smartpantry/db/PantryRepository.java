@@ -75,6 +75,20 @@ public class PantryRepository {
         }
     }
 
+    // Used by the form to stop the same ingredient being added twice
+    public boolean existsByName(String name, long excludeId) {
+        SQLiteDatabase db = helper.getReadableDatabase();
+        Cursor cursor = db.query(PantryTable.NAME, new String[]{PantryTable.ID},
+                PantryTable.NAME_KEY + " = ? AND " + PantryTable.ID + " != ?",
+                new String[]{name.toLowerCase(Locale.ROOT).trim(), String.valueOf(excludeId)},
+                null, null, null);
+        try {
+            return cursor.moveToFirst();
+        } finally {
+            cursor.close();
+        }
+    }
+
     public int count() {
         SQLiteDatabase db = helper.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + PantryTable.NAME, null);

@@ -21,4 +21,12 @@
     <string name="action_save">Save</string>
     <string name="saved_item">%1$s saved</string>
     <string name="error_item_missing">That ingredient could not be found</string>
+    <string name="error_name_required">Please enter an ingredient name</string>
+    <string name="error_name_too_short">Name must be at least 2 characters</string>
+    <string name="error_quantity_required">Please enter a quantity</string>
+    <string name="error_quantity_invalid">Quantity must be a number greater than 0</string>
+    <string name="error_quantity_too_large">Quantity looks too large (max 10000)</string>
+    <string name="error_unit_required">Please choose a unit</string>
+    <string name="error_expiry_past">Expiry date cannot be in the past</string>
+    <string name="error_duplicate">That ingredient is already in your pantry</string>
 </resources>

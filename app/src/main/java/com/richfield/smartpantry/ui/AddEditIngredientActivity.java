@@ -32,9 +32,13 @@ public class AddEditIngredientActivity extends AppCompatActivity {
 
     public static final String EXTRA_ITEM_ID = "extra_item_id";
     private static final long NO_ID = -1L;
+    private static final double MAX_QUANTITY = 10000;
 
     private PantryRepository repository;
 
+    private TextInputLayout layoutName;
+    private TextInputLayout layoutQuantity;
+    private TextInputLayout layoutUnit;
     private TextInputLayout layoutExpiry;
     private TextInputEditText editName;
     private TextInputEditText editQuantity;
@@ -52,6 +56,9 @@ public class AddEditIngredientActivity extends AppCompatActivity {
 
         repository = new PantryRepository(this);
 
+        layoutName = findViewById(R.id.layoutName);
+        layoutQuantity = findViewById(R.id.layoutQuantity);
+        layoutUnit = findViewById(R.id.layoutUnit);
         layoutExpiry = findViewById(R.id.layoutExpiry);
         editName = findViewById(R.id.editName);
         editQuantity = findViewById(R.id.editQuantity);
@@ -127,6 +134,7 @@ public class AddEditIngredientActivity extends AppCompatActivity {
                         chosen.set(year, month, day);
                         selectedExpiry = DateUtils.toStorage(chosen);
                         editExpiry.setText(DateUtils.toDisplay(selectedExpiry));
+                        layoutExpiry.setError(null);
                     }
                 },
                 calendar.get(Calendar.YEAR),
@@ -152,6 +160,10 @@ public class AddEditIngredientActivity extends AppCompatActivity {
     }
 
     private void save() {
+        if (!validateForm()) {
+            return;     // nothing is written to the database until the form is clean
+        }
+
         String name = text(editName);
         double quantity = Double.parseDouble(text(editQuantity));
         String unit = dropdownUnit.getText().toString().trim();
@@ -170,6 +182,73 @@ public class AddEditIngredientActivity extends AppCompatActivity {
 
         Toast.makeText(this, getString(R.string.saved_item, name), Toast.LENGTH_SHORT).show();
         finish();     // the pantry list reloads itself in onResume
+    }
+
+    // Checks every field and puts the message under the one that is wrong.
+    private boolean validateForm() {
+        boolean valid = true;
+        layoutName.setError(null);
+        layoutQuantity.setError(null);
+        layoutUnit.setError(null);
+        layoutExpiry.setError(null);
+
+        String name = text(editName);
+        if (name.isEmpty()) {
+            layoutName.setError(getString(R.string.error_name_required));
+            valid = false;
+        } else if (name.length() < 2) {
+            layoutName.setError(getString(R.string.error_name_too_short));
+            valid = false;
+        } else if (repository.existsByName(name, itemId)) {
+            layoutName.setError(getString(R.string.error_duplicate));
+            valid = false;
+        }
+
+        String quantityText = text(editQuantity);
+        if (quantityText.isEmpty()) {
+            layoutQuantity.setError(getString(R.string.error_quantity_required));
+            valid = false;
+        } else {
+            try {
+                double quantity = Double.parseDouble(quantityText);
+                if (quantity <= 0) {
+                    layoutQuantity.setError(getString(R.string.error_quantity_invalid));
+                    valid = false;
+                } else if (quantity > MAX_QUANTITY) {
+                    layoutQuantity.setError(getString(R.string.error_quantity_too_large));
+                    valid = false;
+                }
+            } catch (NumberFormatException e) {
+                // catches things like "1.2.3" that the number keyboard still allows
+                layoutQuantity.setError(getString(R.string.error_quantity_invalid));
+                valid = false;
+            }
+        }
+
+        if (dropdownUnit.getText().toString().trim().isEmpty()) {
+            layoutUnit.setError(getString(R.string.error_unit_required));
+            valid = false;
+        }
+
+        if (selectedExpiry != null && DateUtils.daysUntil(selectedExpiry) < 0) {
+            layoutExpiry.setError(getString(R.string.error_expiry_past));
+            valid = false;
+        }
+
+        if (!valid) {
+            focusFirstError();
+        }
+        return valid;
+    }
+
+    private void focusFirstError() {
+        if (layoutName.getError() != null) {
+            editName.requestFocus();
+        } else if (layoutQuantity.getError() != null) {
+            editQuantity.requestFocus();
+        } else if (layoutUnit.getError() != null) {
+            dropdownUnit.requestFocus();
+        }
     }
 
     private void confirmDelete() {
