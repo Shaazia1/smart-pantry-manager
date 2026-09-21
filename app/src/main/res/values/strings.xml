@@ -58,6 +58,11 @@
     <string name="settings_reset_body">Put the 20 built in recipes back. Your pantry is not touched.</string>
     <string name="settings_reset_action">Reset recipes</string>
     <string name="settings_reset_done">Recipes restored</string>
+    <string name="expired">Expired</string>
+    <string name="expires_today">Expires today</string>
+    <string name="expires_in_days">Expires in %1$d days</string>
+    <string name="expires_on">Best before %1$s</string>
+
     <string name="settings_about">Smart Pantry Manager 1.0
 Everything is stored locally in SQLite on this phone.</string>
 </resources>

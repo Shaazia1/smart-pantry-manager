@@ -21,6 +21,7 @@ import com.richfield.smartpantry.R;
 import com.richfield.smartpantry.adapter.PantryAdapter;
 import com.richfield.smartpantry.db.PantryRepository;
 import com.richfield.smartpantry.model.PantryItem;
+import com.richfield.smartpantry.util.Prefs;
 
 import java.util.List;
 
@@ -28,6 +29,7 @@ import java.util.List;
 public class PantryListFragment extends Fragment implements PantryAdapter.OnItemActionListener {
 
     private PantryRepository repository;
+    private Prefs prefs;
     private PantryAdapter adapter;
 
     private RecyclerView recyclerView;
@@ -46,6 +48,7 @@ public class PantryListFragment extends Fragment implements PantryAdapter.OnItem
         super.onViewCreated(view, savedInstanceState);
 
         repository = new PantryRepository(requireContext());
+        prefs = new Prefs(requireContext());
 
         recyclerView = view.findViewById(R.id.recyclerPantry);
         emptyState = view.findViewById(R.id.emptyState);
@@ -70,6 +73,7 @@ public class PantryListFragment extends Fragment implements PantryAdapter.OnItem
     @Override
     public void onResume() {
         super.onResume();
+        adapter.setExpiryAlertsEnabled(prefs.isExpiryAlertsEnabled());
         loadPantry();
     }
 
