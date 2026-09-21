@@ -1,15 +1,25 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Theme.SmartPantry" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <!-- Light parent, not DayNight. The screens use fixed cream backgrounds, so
+         on a phone in dark mode DayNight was picking near white text for the
+         field labels and they disappeared into the background. -->
+    <style name="Theme.SmartPantry" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/green_700</item>
         <item name="colorPrimaryDark">@color/green_700</item>
         <item name="colorOnPrimary">@color/white</item>
         <item name="colorSecondary">@color/green_600</item>
         <item name="colorAccent">@color/green_600</item>
+
+        <!-- text fields take their label and outline colour from these two -->
+        <item name="colorSurface">@color/surface_card</item>
+        <item name="colorOnSurface">@color/text_primary</item>
+
         <item name="android:colorBackground">@color/surface</item>
+        <item name="colorOnBackground">@color/text_primary</item>
         <item name="android:statusBarColor" tools:targetApi="l">@color/green_700</item>
         <item name="android:textColorPrimary">@color/text_primary</item>
         <item name="android:textColorSecondary">@color/text_secondary</item>
+        <item name="android:textColorHint">@color/text_secondary</item>
     </style>
 
 </resources>
