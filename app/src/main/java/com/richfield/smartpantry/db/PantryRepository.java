@@ -6,11 +6,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.richfield.smartpantry.db.PantryContract.PantryTable;
+import com.richfield.smartpantry.logic.IngredientNormalizer;
 import com.richfield.smartpantry.model.PantryItem;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 // All the database work for the pantry table lives here, so the screens never
 // have to deal with a Cursor themselves.
@@ -80,7 +80,7 @@ public class PantryRepository {
         SQLiteDatabase db = helper.getReadableDatabase();
         Cursor cursor = db.query(PantryTable.NAME, new String[]{PantryTable.ID},
                 PantryTable.NAME_KEY + " = ? AND " + PantryTable.ID + " != ?",
-                new String[]{name.toLowerCase(Locale.ROOT).trim(), String.valueOf(excludeId)},
+                new String[]{IngredientNormalizer.normalize(name), String.valueOf(excludeId)},
                 null, null, null);
         try {
             return cursor.moveToFirst();
@@ -102,8 +102,7 @@ public class PantryRepository {
     private ContentValues toValues(PantryItem item) {
         ContentValues values = new ContentValues();
         values.put(PantryTable.ITEM_NAME, item.getName());
-        // lower case for now, the proper name cleaner replaces this later
-        values.put(PantryTable.NAME_KEY, item.getName().toLowerCase(Locale.ROOT).trim());
+        values.put(PantryTable.NAME_KEY, IngredientNormalizer.normalize(item.getName()));
         values.put(PantryTable.QUANTITY, item.getQuantity());
         values.put(PantryTable.UNIT, item.getUnit() == null ? "" : item.getUnit());
         values.put(PantryTable.EXPIRY_DATE, item.getExpiryDate());

@@ -5,8 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.richfield.smartpantry.db.PantryContract.RecipeIngredientTable;
 import com.richfield.smartpantry.db.PantryContract.RecipeTable;
-
-import java.util.Locale;
+import com.richfield.smartpantry.logic.IngredientNormalizer;
 
 // Puts the built in recipes into the database the first time the app runs.
 // Ingredient lines are written as "quantity|unit|name" to keep the list readable.
@@ -186,8 +185,8 @@ public class RecipeSeeder {
             values.put(RecipeIngredientTable.QUANTITY, Double.parseDouble(parts[0]));
             values.put(RecipeIngredientTable.UNIT, parts[1]);
             values.put(RecipeIngredientTable.ITEM_NAME, parts[2]);
-            // just lower case for now, this gets replaced when the name cleaner is written
-            values.put(RecipeIngredientTable.NAME_KEY, parts[2].toLowerCase(Locale.ROOT).trim());
+            values.put(RecipeIngredientTable.NAME_KEY,
+                    IngredientNormalizer.normalize(parts[2]));
             db.insert(RecipeIngredientTable.NAME, null, values);
         }
     }
