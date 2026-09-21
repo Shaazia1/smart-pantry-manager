@@ -29,4 +29,12 @@
     <string name="error_unit_required">Please choose a unit</string>
     <string name="error_expiry_past">Expiry date cannot be in the past</string>
     <string name="error_duplicate">That ingredient is already in your pantry</string>
+
+    <string name="nav_recipes">Recipes</string>
+    <string name="title_suggested">Suggested Recipes</string>
+    <string name="suggested_empty_title">No recipes match your pantry yet</string>
+    <string name="suggested_empty_body">Add more ingredients to your pantry and the recipes you can cook will appear here.</string>
+    <string name="match_summary">%1$d of %2$d recipes can be cooked with what you have</string>
+    <string name="recipe_meta">%1$d ingredients &#8226; %2$d min &#8226; serves %3$d</string>
+    <string name="can_cook">You can cook this now</string>
 </resources>
