@@ -3,8 +3,10 @@
     android:id="@+id/textHeader"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:letterSpacing="0.06"
     android:paddingTop="@dimen/spacing_md"
     android:paddingBottom="@dimen/spacing_sm"
+    android:textAllCaps="true"
     android:textColor="@color/green_700"
-    android:textSize="13sp"
+    android:textSize="12sp"
     android:textStyle="bold" />

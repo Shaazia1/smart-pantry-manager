@@ -12,7 +12,7 @@
         android:paddingStart="@dimen/spacing_md"
         android:paddingEnd="@dimen/spacing_md"
         android:paddingTop="@dimen/spacing_md"
-        android:paddingBottom="@dimen/spacing_sm"
+        android:paddingBottom="@dimen/spacing_xs"
         android:textColor="@color/text_secondary"
         android:textSize="13sp"
         app:layout_constraintTop_toTopOf="parent"

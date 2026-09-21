@@ -85,7 +85,8 @@ public class PantryListFragment extends Fragment implements PantryAdapter.OnItem
         emptyState.setVisibility(empty ? View.VISIBLE : View.GONE);
         recyclerView.setVisibility(empty ? View.GONE : View.VISIBLE);
         textItemCount.setVisibility(empty ? View.GONE : View.VISIBLE);
-        textItemCount.setText(getString(R.string.item_count, items.size()));
+        textItemCount.setText(getResources().getQuantityString(
+                R.plurals.item_count, items.size(), items.size()));
     }
 
     // sends the row id along so the form knows which item to load

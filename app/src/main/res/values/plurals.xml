@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- stops the list saying "1 ingredients in your pantry" -->
+    <plurals name="item_count">
+        <item quantity="one">%1$d ingredient in your pantry</item>
+        <item quantity="other">%1$d ingredients in your pantry</item>
+    </plurals>
+</resources>

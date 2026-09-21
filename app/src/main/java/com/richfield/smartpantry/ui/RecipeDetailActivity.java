@@ -65,7 +65,6 @@ public class RecipeDetailActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.textName)).setText(recipe.getName());
         ((TextView) findViewById(R.id.textMeta)).setText(getString(R.string.recipe_meta,
                 recipe.getIngredients().size(), recipe.getMinutes(), recipe.getServings()));
-        ((TextView) findViewById(R.id.textSteps)).setText(recipe.getSteps());
 
         TextView badge = findViewById(R.id.textBadge);
         if (result.isCookable()) {
@@ -79,6 +78,32 @@ public class RecipeDetailActivity extends AppCompatActivity {
         }
 
         showIngredients(recipe, result);
+        showSteps(recipe);
+    }
+
+    // The steps are stored as one block of text with a line per step, so they get
+    // split up and given a numbered circle each. Much easier to follow while
+    // actually cooking than one paragraph.
+    private void showSteps(Recipe recipe) {
+        LinearLayout container = findViewById(R.id.containerSteps);
+        container.removeAllViews();
+
+        LayoutInflater inflater = LayoutInflater.from(this);
+        int number = 1;
+        for (String line : recipe.getSteps().split("\n")) {
+            String step = line.trim();
+            if (step.isEmpty()) {
+                continue;
+            }
+            // the seeded text already starts with "1. ", drop it and use our own
+            step = step.replaceFirst("^\\d+\\.\\s*", "");
+
+            View row = inflater.inflate(R.layout.item_recipe_step, container, false);
+            ((TextView) row.findViewById(R.id.textStepNumber)).setText(String.valueOf(number));
+            ((TextView) row.findViewById(R.id.textStepText)).setText(step);
+            container.addView(row);
+            number++;
+        }
     }
 
     // Builds one row per ingredient. A RecyclerView isn't needed here because the

@@ -4,4 +4,6 @@
     <dimen name="spacing_md">16dp</dimen>
     <dimen name="spacing_lg">24dp</dimen>
     <dimen name="card_radius">14dp</dimen>
+    <!-- smallest comfortable tap area -->
+    <dimen name="touch_target">48dp</dimen>
 </resources>
