@@ -21,6 +21,7 @@ import com.richfield.smartpantry.logic.RecipeMatcher;
 import com.richfield.smartpantry.model.MatchResult;
 import com.richfield.smartpantry.model.PantryItem;
 import com.richfield.smartpantry.model.Recipe;
+import com.richfield.smartpantry.util.Prefs;
 
 import java.util.List;
 
@@ -32,6 +33,7 @@ public class SuggestedRecipesFragment extends Fragment
 
     private PantryRepository pantryRepository;
     private RecipeRepository recipeRepository;
+    private Prefs prefs;
     private RecipeAdapter adapter;
 
     private RecyclerView recyclerView;
@@ -51,6 +53,7 @@ public class SuggestedRecipesFragment extends Fragment
 
         pantryRepository = new PantryRepository(requireContext());
         recipeRepository = new RecipeRepository(requireContext());
+        prefs = new Prefs(requireContext());
 
         recyclerView = view.findViewById(R.id.recyclerRecipes);
         emptyState = view.findViewById(R.id.emptyState);
@@ -74,9 +77,15 @@ public class SuggestedRecipesFragment extends Fragment
         List<MatchResult> all = RecipeMatcher.matchAll(recipes, pantry);
         List<MatchResult> cookable = RecipeMatcher.cookable(all);
 
-        adapter.submitList(cookable);
+        // the almost there list is an extra, it never mixes into the suggestions
+        List<MatchResult> almostThere = prefs.isAlmostThereEnabled()
+                ? RecipeMatcher.almostThere(all)
+                : null;
 
-        boolean nothingToShow = cookable.isEmpty();
+        adapter.submit(requireContext(), cookable, almostThere);
+
+        boolean nothingToShow = cookable.isEmpty()
+                && (almostThere == null || almostThere.isEmpty());
         emptyState.setVisibility(nothingToShow ? View.VISIBLE : View.GONE);
         recyclerView.setVisibility(nothingToShow ? View.GONE : View.VISIBLE);
         textSummary.setVisibility(nothingToShow ? View.GONE : View.VISIBLE);

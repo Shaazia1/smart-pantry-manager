@@ -37,6 +37,9 @@
     <string name="match_summary">%1$d of %2$d recipes can be cooked with what you have</string>
     <string name="recipe_meta">%1$d ingredients &#8226; %2$d min &#8226; serves %3$d</string>
     <string name="can_cook">You can cook this now</string>
+    <string name="suggested_header">You can cook these right now</string>
+    <string name="almost_there_header">Almost there, missing one ingredient</string>
+    <string name="missing_one">Missing: %1$s</string>
 
     <string name="title_recipe">Recipe</string>
     <string name="label_ingredients">Ingredients</string>
