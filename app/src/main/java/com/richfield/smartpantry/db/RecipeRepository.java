@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.richfield.smartpantry.data.RecipeSeeder;
 import com.richfield.smartpantry.db.PantryContract.RecipeIngredientTable;
 import com.richfield.smartpantry.db.PantryContract.RecipeTable;
 import com.richfield.smartpantry.model.Ingredient;
@@ -92,6 +93,21 @@ public class RecipeRepository {
             ingredientCursor.close();
         }
         return recipe;
+    }
+
+    // Empties the recipe tables and seeds them again. Used by the settings
+    // screen. The pantry is left alone.
+    public void resetRecipes() {
+        SQLiteDatabase db = helper.getWritableDatabase();
+        db.beginTransaction();
+        try {
+            db.delete(RecipeIngredientTable.NAME, null, null);
+            db.delete(RecipeTable.NAME, null, null);
+            RecipeSeeder.seed(db);
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
+        }
     }
 
     public int count() {

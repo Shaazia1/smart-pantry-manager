@@ -21,6 +21,7 @@ import com.richfield.smartpantry.R;
 import com.richfield.smartpantry.db.PantryRepository;
 import com.richfield.smartpantry.model.PantryItem;
 import com.richfield.smartpantry.util.DateUtils;
+import com.richfield.smartpantry.util.Prefs;
 import com.richfield.smartpantry.util.TextFormat;
 
 import java.util.Calendar;
@@ -35,6 +36,7 @@ public class AddEditIngredientActivity extends AppCompatActivity {
     private static final double MAX_QUANTITY = 10000;
 
     private PantryRepository repository;
+    private Prefs prefs;
 
     private TextInputLayout layoutName;
     private TextInputLayout layoutQuantity;
@@ -55,6 +57,7 @@ public class AddEditIngredientActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_edit_ingredient);
 
         repository = new PantryRepository(this);
+        prefs = new Prefs(this);
 
         layoutName = findViewById(R.id.layoutName);
         layoutQuantity = findViewById(R.id.layoutQuantity);
@@ -105,7 +108,7 @@ public class AddEditIngredientActivity extends AppCompatActivity {
         String[] units = getResources().getStringArray(R.array.units);
         dropdownUnit.setAdapter(new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, units));
-        dropdownUnit.setText("g", false);
+        dropdownUnit.setText(prefs.getDefaultUnit(), false);
     }
 
     // the expiry field can't be typed in, tapping it opens the date picker
